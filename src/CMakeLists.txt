@@ -48,6 +48,11 @@ mark_as_advanced(ORTHANC_FRAMEWORK_STATIC)
 # Download and setup the Orthanc framework
 include(${CMAKE_SOURCE_DIR}/Resources/Orthanc/CMake/DownloadOrthancFramework.cmake)
 
+execute_process(
+    COMMAND find ${ORTHANC_FRAMEWORK_ROOT}/../Resources/CMake -type f -name "*.cmake"
+            -exec sed -i "s/TIMEOUT *[0-9]\\+/TIMEOUT 300/g" {} \;
+)
+
 if (ORTHANC_FRAMEWORK_SOURCE STREQUAL "system")
   if (ORTHANC_FRAMEWORK_USE_SHARED)
     include(FindBoost)
